@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6fs8t3jf02hm"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerInventory.gd" id="1_7lp2p"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_85ok5"]
+[ext_resource type="PackedScene" uid="uid://byvjhchdstl4d" path="res://Scenes/PlayerBody.tscn" id="2_jbp3t"]
+[ext_resource type="Texture2D" uid="uid://dfyb2acr82osq" path="res://Assets/hand.png" id="6_kbg2d"]
+[ext_resource type="Texture2D" uid="uid://cjpaiay1p0kwf" path="res://Assets/attackPath.png" id="8_tfslc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jt4o0"]
+radius = 52.0
+height = 145.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_85ok5")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+
+[node name="PlayerBody" parent="." instance=ExtResource("2_jbp3t")]
+
+[node name="PlayerInventory" type="Node2D" parent="PlayerBody"]
+z_index = 1
+script = ExtResource("1_7lp2p")
+
+[node name="ItemOnHold" type="Node2D" parent="PlayerBody/PlayerInventory"]
+z_index = 3
+
+[node name="ItemSprite" type="Sprite2D" parent="PlayerBody/PlayerInventory/ItemOnHold"]
+z_index = -1
+rotation = -0.436332
+scale = Vector2(0.3, 0.3)
+
+[node name="HandOnHold1" type="Sprite2D" parent="PlayerBody/PlayerInventory/ItemOnHold"]
+visible = false
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("6_kbg2d")
+offset = Vector2(0, 20)
+
+[node name="HandOnHold2" type="Sprite2D" parent="PlayerBody/PlayerInventory/ItemOnHold"]
+visible = false
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("6_kbg2d")
+offset = Vector2(0, 20)
+
+[node name="AttackPath" type="Sprite2D" parent="PlayerBody/PlayerInventory/ItemOnHold"]
+visible = false
+modulate = Color(1, 1, 1, 0.219608)
+scale = Vector2(0.5, 0.45)
+texture = ExtResource("8_tfslc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 25.5)
+shape = SubResource("CapsuleShape2D_jt4o0")

@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbm1g2dfkhmp2"]
+
+[ext_resource type="Shader" path="res://Shaders/ShaderPixelated.gdshader" id="1_7fs7s"]
+[ext_resource type="PackedScene" uid="uid://cuaeybwuaxmx8" path="res://Scenes/LevelBase.tscn" id="2_6tie1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ejmgl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uvmyk"]
+shader = ExtResource("1_7fs7s")
+shader_parameter/amount = 300
+
+[node name="World" type="Node2D"]
+material = SubResource("ShaderMaterial_ejmgl")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_uvmyk")
+offset_right = 2560.0
+offset_bottom = 1440.0
+size_flags_stretch_ratio = 0.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(2560, 1440)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Level" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_6tie1")]

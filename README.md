@@ -1,6 +1,6 @@
 Vivi Arruda Pereira - 2110624
 
-(File do jogo mesmo é FrankenFarm dentro de FrankenFarmDocs)
+(File do jogo mesmo é FrankenFarm, se precisar abrir no godot abra ela!)
 
 -> itch.io do jogo em teste WebGL: https://criaturavivi.itch.io/test-frankenfarm
 

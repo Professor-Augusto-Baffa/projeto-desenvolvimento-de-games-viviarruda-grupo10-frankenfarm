@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6fs8t3jf02hm"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_85ok5"]
+[ext_resource type="PackedScene" uid="uid://byvjhchdstl4d" path="res://Scenes/PlayerBody.tscn" id="2_jbp3t"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jt4o0"]
+radius = 43.0
+height = 122.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_luv1h"]
+radius = 65.0
+height = 188.0
+
+[node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_85ok5")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.1
+drag_top_margin = 0.1
+drag_right_margin = 0.1
+drag_bottom_margin = 0.1
+
+[node name="PlayerBody" parent="." instance=ExtResource("2_jbp3t")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 83)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jt4o0")
+
+[node name="PlayerHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
+position = Vector2(-1, 43)
+shape = SubResource("CapsuleShape2D_luv1h")
+
+[node name="DamageCooldown" type="Timer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0.841371, 0, 0.161237, 0.992157)
+z_index = 2
+offset_left = -59.0
+offset_top = 150.0
+offset_right = 41.0
+offset_bottom = 180.0
+scale = Vector2(1.2, 1.2)
+max_value = 10.0
+show_percentage = false
+
+[node name="RegenTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="CanRegenTimer" type="Timer" parent="."]
+wait_time = 15.0
+
+[connection signal="body_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="PlayerHitbox" to="." method="_on_player_hitbox_body_exited"]
+[connection signal="timeout" from="DamageCooldown" to="." method="_on_damage_cooldown_timeout"]
+[connection signal="timeout" from="RegenTimer" to="." method="_on_regen_timer_timeout"]
+[connection signal="timeout" from="CanRegenTimer" to="." method="_on_can_regen_timer_timeout"]

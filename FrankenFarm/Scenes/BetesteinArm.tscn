@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddu0nqnionfxo"]
+
+[ext_resource type="Script" path="res://Scripts/BetesteinArm.gd" id="1_1wgya"]
+[ext_resource type="Texture2D" uid="uid://b5m2ou87dxyut" path="res://Assets/betesteinArm.png" id="2_6dahi"]
+
+[node name="BetesteinArm" type="Marker2D"]
+script = ExtResource("1_1wgya")
+movArch = 80.0
+movSpeed = 3.0
+
+[node name="BetesteinElbow" type="Marker2D" parent="."]
+position = Vector2(213, 0)
+
+[node name="BetesteinHand" type="Marker2D" parent="BetesteinElbow"]
+position = Vector2(177, 0)
+
+[node name="OpenHand" type="Marker2D" parent="BetesteinElbow/BetesteinHand"]
+visible = false
+
+[node name="Finger" type="Sprite2D" parent="BetesteinElbow/BetesteinHand/OpenHand"]
+position = Vector2(12.6243, -17.8456)
+rotation = 0.617847
+scale = Vector2(0.105606, 0.140217)
+texture = ExtResource("2_6dahi")
+
+[node name="Finger2" type="Sprite2D" parent="BetesteinElbow/BetesteinHand/OpenHand"]
+position = Vector2(21, 9.53674e-07)
+rotation = 1.4591
+scale = Vector2(0.110973, 0.137869)
+skew = -0.00210607
+texture = ExtResource("2_6dahi")
+
+[node name="Finger3" type="Sprite2D" parent="BetesteinElbow/BetesteinHand/OpenHand"]
+position = Vector2(12.4501, 17.6365)
+rotation = -0.617847
+scale = Vector2(0.108102, 0.120512)
+texture = ExtResource("2_6dahi")
+
+[node name="ClosedHand" type="Marker2D" parent="BetesteinElbow/BetesteinHand"]
+
+[node name="Finger4" type="Sprite2D" parent="BetesteinElbow/BetesteinHand/ClosedHand"]
+position = Vector2(9.04283, -7.79522)
+rotation = 0.617847
+scale = Vector2(0.117217, 0.0991489)
+texture = ExtResource("2_6dahi")
+
+[node name="Finger5" type="Sprite2D" parent="BetesteinElbow/BetesteinHand/ClosedHand"]
+position = Vector2(13.9689, 2.26055)
+rotation = 1.4591
+scale = Vector2(0.116763, 0.108912)
+skew = -0.00210607
+texture = ExtResource("2_6dahi")
+
+[node name="Finger6" type="Sprite2D" parent="BetesteinElbow/BetesteinHand/ClosedHand"]
+position = Vector2(9.42082, 8.36315)
+rotation = -0.617847
+scale = Vector2(0.119713, 0.0832569)
+texture = ExtResource("2_6dahi")
+
+[node name="BetesteinArm2" type="Sprite2D" parent="BetesteinElbow"]
+position = Vector2(87.6208, 2.80259)
+rotation = 1.56207
+scale = Vector2(0.115686, 0.433657)
+texture = ExtResource("2_6dahi")
+
+[node name="BetesteinArm" type="Sprite2D" parent="."]
+position = Vector2(109.739, 1.68774)
+rotation = 1.56207
+scale = Vector2(0.127389, 0.484845)
+texture = ExtResource("2_6dahi")

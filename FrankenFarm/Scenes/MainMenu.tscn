@@ -1,0 +1,99 @@
+[gd_scene load_steps=11 format=3 uid="uid://i4t8fm4nyh6s"]
+
+[ext_resource type="Script" path="res://Scripts/Menu.gd" id="1_dq36x"]
+[ext_resource type="Texture2D" uid="uid://di84vr1sxg4y5" path="res://Assets/menuScreenBackground.png" id="2_y23qj"]
+[ext_resource type="Texture2D" uid="uid://imo7go6kg287" path="res://Assets/menuLogo.png" id="3_46qwh"]
+[ext_resource type="Texture2D" uid="uid://d0u4sutbjkgmv" path="res://Assets/menuPlay.png" id="4_henc2"]
+[ext_resource type="Texture2D" uid="uid://dlc0arsdcjhq3" path="res://Assets/menuOptions.png" id="5_vap4a"]
+[ext_resource type="Texture2D" uid="uid://cytdhtdphpx3u" path="res://Assets/menuQuit.png" id="6_ifmi4"]
+[ext_resource type="Shader" path="res://Shaders/crt.gdshader" id="7_buw1i"]
+[ext_resource type="Script" path="res://Scripts/SFXMenu.gd" id="8_lkcb5"]
+[ext_resource type="AudioStream" uid="uid://jk5khm7d1pks" path="res://Audio/SFX/Click.wav" id="9_wxcmv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qnkta"]
+shader = ExtResource("7_buw1i")
+shader_parameter/crt_brightness = 0.443
+shader_parameter/crt_white_noise = 0.234
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dq36x")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_y23qj")
+
+[node name="night" type="CanvasModulate" parent="."]
+color = Color(0.770585, 0.804797, 0.983139, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_qnkta")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_46qwh")
+
+[node name="Options" type="Button" parent="."]
+layout_mode = 2
+offset_left = -1.0
+offset_top = 1085.0
+offset_right = 78.0
+offset_bottom = 1127.0
+scale = Vector2(9, 9)
+action_mode = 0
+icon = ExtResource("5_vap4a")
+flat = true
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 0
+offset_left = 941.0
+offset_top = 720.0
+offset_right = 1018.0
+offset_bottom = 774.0
+scale = Vector2(10, 10)
+action_mode = 0
+icon = ExtResource("4_henc2")
+flat = true
+
+[node name="Quit Game" type="Button" parent="."]
+layout_mode = 2
+offset_left = 2052.0
+offset_top = 1136.0
+offset_right = 2115.0
+offset_bottom = 1175.0
+scale = Vector2(8, 8)
+action_mode = 0
+icon = ExtResource("6_ifmi4")
+flat = true
+
+[node name="SFXMenu" type="Node" parent="."]
+script = ExtResource("8_lkcb5")
+
+[node name="Click" type="AudioStreamPlayer2D" parent="SFXMenu"]
+stream = ExtResource("9_wxcmv")
+
+[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Play" to="SFXMenu" method="_on_play_pressed"]
+[connection signal="pressed" from="Quit Game" to="." method="_on_quit_game_pressed"]

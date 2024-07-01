@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=3 uid="uid://bbm1g2dfkhmp2"]
+
+[ext_resource type="Shader" path="res://Shaders/ShaderPixelated.gdshader" id="1_7fs7s"]
+[ext_resource type="PackedScene" uid="uid://cuaeybwuaxmx8" path="res://Scenes/LevelBase.tscn" id="2_6tie1"]
+[ext_resource type="Script" path="res://Scripts/NightFilter.gd" id="3_iir6f"]
+[ext_resource type="Shader" path="res://Shaders/crt.gdshader" id="3_vkh2g"]
+[ext_resource type="Script" path="res://Scripts/GameOverScreen.gd" id="5_qvmcg"]
+[ext_resource type="Texture2D" uid="uid://62fefyu3u4u2" path="res://Assets/gameOver.png" id="6_1ef2s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ejmgl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uvmyk"]
+shader = ExtResource("1_7fs7s")
+shader_parameter/amount = 300
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3gjgt"]
+shader = ExtResource("3_vkh2g")
+shader_parameter/crt_brightness = 0.243
+shader_parameter/crt_white_noise = 0.2
+
+[node name="World" type="Node2D"]
+material = SubResource("ShaderMaterial_ejmgl")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_uvmyk")
+offset_right = 2560.0
+offset_bottom = 1440.0
+size_flags_stretch_ratio = 0.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+audio_listener_enable_2d = true
+size = Vector2i(2560, 1440)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Level" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_6tie1")]
+
+[node name="NightFilter" type="CanvasLayer" parent="SubViewportContainer/SubViewport"]
+script = ExtResource("3_iir6f")
+
+[node name="NightColor" type="CanvasModulate" parent="SubViewportContainer/SubViewport/NightFilter"]
+color = Color(0.184077, 0.106651, 0.257048, 1)
+
+[node name="NightShader" type="ColorRect" parent="SubViewportContainer/SubViewport/NightFilter"]
+material = SubResource("ShaderMaterial_3gjgt")
+use_parent_material = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TurnToNight" type="Button" parent="SubViewportContainer/SubViewport/NightFilter"]
+offset_left = 2100.0
+offset_top = 23.0
+offset_right = 2206.0
+offset_bottom = 54.0
+scale = Vector2(4, 4)
+action_mode = 0
+text = "NIGHT"
+
+[node name="Transition" type="Timer" parent="SubViewportContainer/SubViewport/NightFilter"]
+wait_time = 2.0
+
+[node name="GameOverScreen" type="Control" parent="SubViewportContainer/SubViewport/NightFilter"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_qvmcg")
+
+[node name="Button" type="Button" parent="SubViewportContainer/SubViewport/NightFilter/GameOverScreen"]
+layout_mode = 0
+offset_right = 264.0
+offset_bottom = 152.0
+scale = Vector2(10, 10)
+icon = ExtResource("6_1ef2s")
+flat = true
+
+[connection signal="pressed" from="SubViewportContainer/SubViewport/NightFilter/TurnToNight" to="SubViewportContainer/SubViewport/NightFilter" method="_on_turn_to_night_pressed"]
+[connection signal="timeout" from="SubViewportContainer/SubViewport/NightFilter/Transition" to="SubViewportContainer/SubViewport/NightFilter" method="_on_transition_timeout"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/NightFilter/GameOverScreen/Button" to="SubViewportContainer/SubViewport/NightFilter/GameOverScreen" method="_on_button_pressed"]

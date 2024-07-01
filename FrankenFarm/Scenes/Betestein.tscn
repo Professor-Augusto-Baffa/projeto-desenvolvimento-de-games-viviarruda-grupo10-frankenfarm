@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://j1vwwxwdhqx8"]
+
+[ext_resource type="PackedScene" uid="uid://0wxt6jm0w0bf" path="res://Scenes/Enemy.tscn" id="1_otgp6"]
+[ext_resource type="Texture2D" uid="uid://dqdav03b6w8t8" path="res://Assets/betesteinBody.png" id="2_6e734"]
+[ext_resource type="Script" path="res://Scripts/Betestein.gd" id="2_u7c80"]
+[ext_resource type="Texture2D" uid="uid://bknpjjb5p8kui" path="res://Assets/betesteinLeaf.png" id="3_5x66c"]
+[ext_resource type="PackedScene" uid="uid://ddu0nqnionfxo" path="res://Scenes/BetesteinArm.tscn" id="3_krqvt"]
+[ext_resource type="Texture2D" uid="uid://dfyb2acr82osq" path="res://Assets/hand.png" id="5_i2mw7"]
+[ext_resource type="Script" path="res://Scripts/Debug.gd" id="6_fvgkd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4wqai"]
+radius = 195.0
+height = 390.0
+
+[node name="Betestein" instance=ExtResource("1_otgp6")]
+script = ExtResource("2_u7c80")
+speed = 150
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 24)
+
+[node name="NavigationAgent2D" parent="." index="1"]
+debug_enabled = false
+
+[node name="BetesteinBody" type="Marker2D" parent="." index="3"]
+
+[node name="BetesteinArm1" parent="BetesteinBody" index="0" instance=ExtResource("3_krqvt")]
+flip = false
+
+[node name="BetesteinArm2" parent="BetesteinBody" index="1" instance=ExtResource("3_krqvt")]
+faseAngulo = 0.2
+
+[node name="BetesteinArm3" parent="BetesteinBody" index="2" instance=ExtResource("3_krqvt")]
+faseMov = 1.7
+faseAngulo = -0.5
+
+[node name="BetesteinLeaves" type="Marker2D" parent="BetesteinBody" index="3"]
+
+[node name="BetesteinLeaf" type="Sprite2D" parent="BetesteinBody/BetesteinLeaves" index="0"]
+scale = Vector2(1.192, 1.01759)
+texture = ExtResource("3_5x66c")
+
+[node name="BetesteinLeaf2" type="Sprite2D" parent="BetesteinBody/BetesteinLeaves" index="1"]
+rotation = 0.254818
+scale = Vector2(1.09235, 0.876531)
+texture = ExtResource("3_5x66c")
+
+[node name="BetesteinLeaf3" type="Sprite2D" parent="BetesteinBody/BetesteinLeaves" index="2"]
+rotation = -0.258309
+scale = Vector2(1.05191, 0.864437)
+texture = ExtResource("3_5x66c")
+
+[node name="BetesteinBody" type="Sprite2D" parent="BetesteinBody" index="4"]
+scale = Vector2(0.676, 0.69384)
+texture = ExtResource("2_6e734")
+
+[node name="Debug" type="Sprite2D" parent="BetesteinBody" index="5"]
+visible = false
+modulate = Color(1, 0.0627451, 1, 0.560784)
+position = Vector2(539, -1.00001)
+scale = Vector2(0.2, 0.218)
+texture = ExtResource("5_i2mw7")
+script = ExtResource("6_fvgkd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox" index="0"]
+visible = false
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_4wqai")

@@ -1,5 +1,5 @@
 Vivi Arruda Pereira - 2110624
-(Ainda n acabei a g2, vou entregar até primeiro de julho)
+
 (File do jogo mesmo é FrankenFarm dentro de FrankenFarmDocs)
 
 -> itch.io do jogo em teste WebGL: https://criaturavivi.itch.io/test-frankenfarm
